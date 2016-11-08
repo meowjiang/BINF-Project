@@ -52,6 +52,10 @@ outputStats <-function(id,conn1,conn2){
     print("FAIL: No disease.state" )
     writeLines("FAIL: No disease.state",con=conn1);
     writeLines("FAIL: No disease.state",con=conn2);
+    writeLines("\n",con=conn1)
+    writeLines("\n",con=conn2)
+    
+    
     return()
   }
   
@@ -73,9 +77,20 @@ outputStats <-function(id,conn1,conn2){
   writeLines(toString(names(summary(ds))),con=conn1)
   writeLines(toString(summary(ds)),con=conn1)
   
-  
+  #GDS4513 no-relapse vs relapse?
+  #GDS2205 non-failing vs failing
+  #GDS5098 Seminoma, yolk sac tumor?
+  #GDS2362 presymptomatic, experimentally acquired, symptomatic, naturally acquired, uninfected
+  #GDS3353 high bone mineral density, low bone mineral density
+  #GDS1287 high BMD, low BMD
+  #GDS1523 clear cell adenocarcinoma, serous adenocarcinoma
+  #GDS4336 cancer death: 0, cancer death: 1, cancer death: na
+  #GDS3326 dedifferentiated liposarcoma, fibrosarcoma, leiomyosarcoma, lipoma, malignant fibrous histiocytoma, malignant peripheral nerve sheath tumor, myxofibrosarcoma, myxoid liposarcoma, synovial sarcoma, well-differentiated liposarcoma
+  #GDS4337 non-diabetic, T2D
+  #GDS4456 no recurrence/DOD, recurrence/DOD
+
   #known list of patterns for controls
-  controlPattern<-"control|normal|healthy"
+  controlPattern<-"control|normal|healthy|non-Alzheimer's|HIV-negative|non-obese"
   
   
   #If there was no control based on the known names we have write out an error
@@ -91,6 +106,8 @@ outputStats <-function(id,conn1,conn2){
   controlList <- grep(controlPattern,states,value=TRUE)
   diseaseList<-grep(controlPattern,states,value=TRUE,invert=TRUE)
   levels(ds) <- list(control=controlList, disease=diseaseList)
+  
+  #Can we take out some factors and associated values completely
   
   
   if(length(unique(ds))!=2){
