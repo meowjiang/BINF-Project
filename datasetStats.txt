@@ -1,0 +1,554 @@
+GDS2601 :
+Disease States:
+Alzheimer disease, normal
+14, 14
+
+
+GDS810 :
+FAIL: Disease state non-binary
+Disease States:
+control, incipient AD, moderate AD, severe AD
+9, 7, 8, 7
+
+
+GDS4758 :
+Disease States:
+Alzheimer's disease, non-Alzheimer's disease
+32, 47
+FAIL:No Control
+
+
+GDS3472 :
+Disease States:
+Barrett's esophagus, normal
+7, 12
+
+
+GDS1615 :
+FAIL: Disease state non-binary
+Disease States:
+Crohn's disease, normal, ulcerative colitis
+59, 42, 26
+
+
+GDS1330 :
+FAIL: Disease state non-binary
+Disease States:
+Crohn disease, normal, ulcerative colitis
+10, 11, 10
+
+
+GDS3268 :
+Disease States:
+normal, ulcerative colitis
+73, 129
+
+
+GDS2821 :
+Disease States:
+control, Parkinson's disease
+9, 16
+
+
+GDS4358 :
+FAIL: Disease state non-binary
+Disease States:
+control, HIV, HIV + HAD, HIV + HAD + HIVE
+18, 18, 21, 15
+
+
+GDS4228 :
+Disease States:
+HIV-negative, HIV-positive
+41, 125
+FAIL:No Control
+
+
+GDS4879 :
+Disease States:
+alcoholism, control
+20, 19
+
+
+GDS5275 :
+Disease States:
+alopecia areata, normal
+4, 3
+
+
+GDS412 :
+FAIL: Disease state non-binary
+Disease States:
+control, familial ALS, sporadic ALS
+4, 2, 5
+
+
+GDS1956 :
+FAIL: Disease state non-binary
+Disease States:
+acute quadriplegic myopathy, amyotophic lateral sclerosis, Becker muscular dystrophy, Calpain 3 mutation, Duchenne muscular dystrophy, dysferlin mutation, Emery-Dreifuss muscular dystrophy, fascioscapulohumeral muscular dystrophy, FKRP mutation, juvenile dermatomyositis, normal, spastic paraplegia
+5, 9, 5, 10, 10, 10, 8, 14, 7, 21, 18, 4
+
+
+GDS5231 :
+Disease States:
+ankylosing spondylitis, control
+16, 16
+
+
+GDS5037 :
+FAIL: Disease state non-binary
+Disease States:
+control, mild asthma, severe asthma
+20, 50, 38
+
+
+GDS4896 :
+FAIL: Disease state non-binary
+Disease States:
+healthy control, mild asthma, severe asthma
+18, 19, 17
+
+
+GDS5245 :
+Disease States:
+allergic asthma, control
+5, 5
+
+
+GDS3690 :
+Disease States:
+control, coronary artery disease
+66, 87
+
+
+GDS5083 :
+FAIL: No disease.state
+GDS4491 :
+FAIL: Disease state non-binary
+Disease States:
+Atopic dermatitis: Lesional, Atopic dermatitis: Nonlesional, normal
+13, 12, 8
+
+
+GDS3806 :
+FAIL: Disease state non-binary
+Disease States:
+atopic dermatitis, non-atopic control, psoriasis
+5, 7, 4
+
+
+GDS2382 :
+Disease States:
+atopic dermatitis, normal
+12, 5
+
+
+GDS2381 :
+Disease States:
+atopic dermatitis, normal
+12, 5
+
+
+GDS4431 :
+Disease States:
+autism, control
+77, 69
+
+
+GDS3345 :
+FAIL: Disease state non-binary
+Disease States:
+bipolar disorder, control, depression, schizophrenia
+11, 15, 11, 13
+
+
+GDS2191 :
+Disease States:
+bipolar disorder, control
+10, 11
+
+
+GDS2190 :
+Disease States:
+bipolar disorder, control
+30, 31
+
+
+GDS5181 :
+Disease States:
+control, glioma
+12, 8
+
+
+GDS4761 :
+FAIL: No disease.state
+GDS3233 :
+FAIL: Disease state non-binary
+Disease States:
+cervical cancer cell line, cervical cancer primary tumor, normal
+9, 28, 24
+
+
+GDS470 :
+FAIL: Disease state non-binary
+Disease States:
+cervical cancer stage 1B, cervical cancer stage 2A, cervical cancer stage 2B, cervical cancer stage 3B, control
+11, 8, 4, 1, 8
+
+
+GDS289 :
+Disease States:
+chronic obstructive pulmonary disease, control
+3, 4
+
+
+GDS4513 :
+Disease States:
+no relapse, relapse
+40, 13
+FAIL:No Control
+
+
+GDS3690 :
+Disease States:
+control, coronary artery disease
+66, 87
+
+
+GDS3789 :
+Disease States:
+coronary artery disease, healthy
+20, 4
+
+
+GDS1850 :
+Disease States:
+carious, healthy
+2, 2
+
+
+GDS4772 :
+Disease States:
+dilated cardiomyopathy, normal
+12, 5
+
+
+GDS2154 :
+Disease States:
+healthy, inflammatory dilated cardiomyopathy
+4, 8
+
+
+GDS2205 :
+Disease States:
+dilated cardiomyopathy, non-failing
+7, 5
+FAIL:No Control
+
+
+GDS3345 :
+FAIL: Disease state non-binary
+Disease States:
+bipolar disorder, control, depression, schizophrenia
+11, 15, 11, 13
+
+
+GDS5098 :
+FAIL: No disease.state
+GDS3262 :
+Disease States:
+Seminoma, Yolk sac tumor
+9, 18
+FAIL:No Control
+
+
+GDS1112 :
+Disease States:
+glaucoma, normal
+7, 6
+
+
+GDS2520 :
+Disease States:
+head and neck squamous carcinoma, normal
+22, 22
+
+
+GDS3057 :
+Disease States:
+leukemia, normal
+26, 38
+
+
+GDS504 :
+Disease States:
+normal, pulmonary arterial hypertension
+6, 14
+
+
+GDS1252 :
+FAIL: Disease state non-binary
+Disease States:
+idiopathic pulmonary fibrosis, mixed connective tissue disease, normal, sceloderma
+13, 1, 11, 1
+
+
+GDS505 :
+Disease States:
+normal, RCC
+8, 9
+
+
+GDS4882 :
+FAIL: Disease state non-binary
+Disease States:
+gastric cancer, hepatocellular carcinoma, normal, pancreatic cancer
+3, 10, 10, 3
+
+
+GDS3837 :
+Disease States:
+control, lung cancer
+60, 60
+
+
+GDS1419 :
+FAIL: Disease state non-binary
+Disease States:
+classical Hodgkin's lymphoma, normal, sarcoidosis
+2, 2, 2
+
+
+GDS2362 :
+FAIL: Disease state non-binary
+Disease States:
+presymptomatic, experimentally acquired, symptomatic, naturally acquired, uninfected
+22, 27, 22
+FAIL:No Control
+
+
+GDS5181 :
+Disease States:
+control, glioma
+12, 8
+
+
+GDS1375 :
+FAIL: Disease state non-binary
+Disease States:
+benign nevi, malignant melanoma, normal
+18, 45, 7
+
+
+GDS4909 :
+Disease States:
+healthy control, metabolic syndrome
+12, 12
+
+
+GDS3920 :
+Disease States:
+healthy control, Multiple sclerosis
+15, 14
+
+
+GDS3886 :
+Disease States:
+healthy control, multiple sclerosis
+4, 8
+
+
+GDS533 :
+FAIL: No disease.state
+GDS2447 :
+Disease States:
+control, nicotine dependence
+9, 6
+
+
+GDS5056 :
+Disease States:
+morbidly obese, non-obese
+3, 3
+FAIL:No Control
+
+
+GDS4281 :
+FAIL: No disease.state
+GDS5403 :
+FAIL: Disease state non-binary
+Disease States:
+normal, osteoarthritis, rheumatoid arthritis
+10, 10, 13
+
+
+GDS3353 :
+Disease States:
+high bone mineral density, low bone mineral density
+10, 10
+FAIL:No Control
+
+
+GDS1287 :
+Disease States:
+high BMD, low BMD
+10, 9
+FAIL:No Control
+
+
+GDS1523 :
+Disease States:
+clear cell adenocarcinoma, serous adenocarcinoma
+5, 5
+FAIL:No Control
+
+
+GDS3592 :
+Disease States:
+normal, ovarian adenocarcinoma
+12, 12
+
+
+GDS4336 :
+FAIL: Disease state non-binary
+Disease States:
+cancer death: 0, cancer death: 1, cancer death: na
+26, 58, 6
+FAIL:No Control
+
+
+GDS3326 :
+FAIL: No disease.state
+GDS2736 :
+FAIL: Disease state non-binary
+Disease States:
+dedifferentiated liposarcoma, fibrosarcoma, leiomyosarcoma, lipoma, malignant fibrous histiocytoma, malignant peripheral nerve sheath tumor, myxofibrosarcoma, myxoid liposarcoma, synovial sarcoma, well-differentiated liposarcoma
+15, 4, 6, 3, 21, 3, 15, 19, 16, 3
+FAIL:No Control
+
+
+GDS4399 :
+Disease States:
+control, polycystic ovary syndrome
+3, 7
+
+
+GDS5072 :
+Disease States:
+control, prostate cancer
+1, 10
+
+
+GDS3539 :
+Disease States:
+control, psoriasis
+21, 61
+
+
+GDS5403 :
+FAIL: Disease state non-binary
+Disease States:
+normal, osteoarthritis, rheumatoid arthritis
+10, 10, 13
+
+
+GDS1209 :
+Disease States:
+normal, sarcoma
+15, 39
+
+
+GDS4523 :
+Disease States:
+control, schizophrenia
+23, 28
+
+
+GDS2200 :
+FAIL: Disease state non-binary
+Disease States:
+actinic keratosis, normal, squamous cell carcinoma
+4, 6, 5
+
+
+GDS1210 :
+Disease States:
+cancer, normal
+22, 8
+
+
+GDS4719 :
+Disease States:
+healthy control, systemic lupus erythematosus
+9, 10
+
+
+GDS5499 :
+FAIL: Disease state non-binary
+Disease States:
+control, idiopathic pulmonary arterial hypertension, scleroderma-associated pulmonary arterial hypertension, systemic sclerosis SSc complicated by interstitial lung disease and pulmonary hypertension, systemic sclerosis without pulmonary hypertension
+41, 30, 42, 8, 19
+
+
+GDS2842 :
+FAIL: Disease state non-binary
+Disease States:
+normal, pT1, pT2, pT3
+3, 22, 14, 4
+
+
+GDS1732 :
+Disease States:
+normal, papillary thyroid cancer
+7, 7
+
+
+GDS3874 :
+FAIL: Disease state non-binary
+Disease States:
+healthy, type 1 diabetes, type 2 diabetes
+24, 81, 12
+
+
+GDS3875 :
+FAIL: Disease state non-binary
+Disease States:
+healthy, type 1 diabetes, type 2 diabetes
+24, 81, 12
+
+
+GDS4337 :
+Disease States:
+non-diabetic, T2D
+54, 9
+FAIL:No Control
+
+
+GDS3963 :
+FAIL: Disease state non-binary
+Disease States:
+control, impaired fasting glucose, Type 2 diabetes
+8, 7, 9
+
+
+GDS4365 :
+FAIL: Disease state non-binary
+Disease States:
+control, UC_active (involved mucosa), UC_active (non-involved mucosa), UC_remission (involved mucosa)
+13, 15, 7, 8
+
+
+GDS4456 :
+Disease States:
+no recurrence/DOD, recurrence/DOD
+54, 39
+FAIL:No Control
+
+
+GDS4589 :
+Disease States:
+postmenopausal healthy, stage I endometrial cancer
+12, 91
+
+
