@@ -1,21 +1,7 @@
-GDS2601 :
-Transformed Disease States:
-control, disease
-14, 14
-
-
 GDS810 :
 Transformed Disease States:
 control, disease
 9, 22
-
-
-GDS4758 :
-FAIL:No Control
-FAIL: Disease state non-binary
-Transformed Disease States:
-disease
-79
 
 
 GDS3472 :
@@ -30,18 +16,6 @@ control, disease
 42, 85
 
 
-GDS1330 :
-Transformed Disease States:
-control, disease
-11, 20
-
-
-GDS3268 :
-Transformed Disease States:
-control, disease
-73, 129
-
-
 GDS2821 :
 Transformed Disease States:
 control, disease
@@ -54,30 +28,10 @@ control, disease
 18, 54
 
 
-GDS4228 :
-FAIL:No Control
-FAIL: Disease state non-binary
-Transformed Disease States:
-disease
-166
-
-
-GDS4879 :
-Transformed Disease States:
-control, disease
-19, 20
-
-
 GDS5275 :
 Transformed Disease States:
 control, disease
 3, 4
-
-
-GDS412 :
-Transformed Disease States:
-control, disease
-4, 7
 
 
 GDS1956 :
@@ -86,54 +40,10 @@ control, disease
 18, 103
 
 
-GDS5231 :
-Transformed Disease States:
-control, disease
-16, 16
-
-
-GDS5037 :
-Transformed Disease States:
-control, disease
-20, 88
-
-
-GDS4896 :
-Transformed Disease States:
-control, disease
-18, 36
-
-
 GDS5245 :
 Transformed Disease States:
 control, disease
 5, 5
-
-
-GDS3690 :
-Transformed Disease States:
-control, disease
-66, 87
-
-
-GDS5083 :
-FAIL: No disease.state
-GDS4491 :
-Transformed Disease States:
-control, disease
-8, 25
-
-
-GDS3806 :
-Transformed Disease States:
-control, disease
-7, 9
-
-
-GDS2382 :
-Transformed Disease States:
-control, disease
-5, 12
 
 
 GDS2381 :
@@ -148,62 +58,22 @@ control, disease
 69, 77
 
 
-GDS3345 :
-Transformed Disease States:
-control, disease
-15, 35
-
-
-GDS2191 :
-Transformed Disease States:
-control, disease
-11, 10
-
-
 GDS2190 :
 Transformed Disease States:
 control, disease
 31, 30
 
 
-GDS5181 :
-Transformed Disease States:
-control, disease
-12, 8
-
-
-GDS4761 :
-FAIL: No disease.state
 GDS3233 :
 Transformed Disease States:
 control, disease
 24, 37
 
 
-GDS470 :
-Transformed Disease States:
-control, disease
-8, 24
-
-
 GDS289 :
 Transformed Disease States:
 control, disease
 4, 3
-
-
-GDS4513 :
-FAIL:No Control
-FAIL: Disease state non-binary
-Transformed Disease States:
-disease
-53
-
-
-GDS3690 :
-Transformed Disease States:
-control, disease
-66, 87
 
 
 GDS3789 :
@@ -218,70 +88,16 @@ control, disease
 2, 2
 
 
-GDS4772 :
-Transformed Disease States:
-control, disease
-5, 12
-
-
-GDS2154 :
-Transformed Disease States:
-control, disease
-4, 8
-
-
 GDS2205 :
-FAIL:No Control
-FAIL: Disease state non-binary
-Transformed Disease States:
-disease
-12
-
-
-GDS3345 :
 Transformed Disease States:
 control, disease
-15, 35
-
-
-GDS5098 :
-FAIL: No disease.state
-GDS3262 :
-FAIL:No Control
-FAIL: Disease state non-binary
-Transformed Disease States:
-disease
-27
-
-
-GDS1112 :
-Transformed Disease States:
-control, disease
-6, 7
-
-
-GDS2520 :
-Transformed Disease States:
-control, disease
-22, 22
+5, 7
 
 
 GDS3057 :
 Transformed Disease States:
 control, disease
 38, 26
-
-
-GDS504 :
-Transformed Disease States:
-control, disease
-6, 14
-
-
-GDS1252 :
-Transformed Disease States:
-control, disease
-11, 15
 
 
 GDS505 :
@@ -302,36 +118,16 @@ control, disease
 60, 60
 
 
-GDS1419 :
-Transformed Disease States:
-control, disease
-2, 4
-
-
 GDS2362 :
-FAIL:No Control
-FAIL: Disease state non-binary
-Transformed Disease States:
-disease
-71
-
-
-GDS5181 :
 Transformed Disease States:
 control, disease
-12, 8
+22, 49
 
 
 GDS1375 :
 Transformed Disease States:
 control, disease
-7, 63
-
-
-GDS4909 :
-Transformed Disease States:
-control, disease
-12, 12
+25, 45
 
 
 GDS3920 :
@@ -340,30 +136,12 @@ control, disease
 15, 14
 
 
-GDS3886 :
+GDS3688 :
 Transformed Disease States:
 control, disease
-4, 8
+6, 5
 
 
-GDS533 :
-FAIL: No disease.state
-GDS2447 :
-Transformed Disease States:
-control, disease
-9, 6
-
-
-GDS5056 :
-FAIL:No Control
-FAIL: Disease state non-binary
-Transformed Disease States:
-disease
-6
-
-
-GDS4281 :
-FAIL: No disease.state
 GDS5403 :
 Transformed Disease States:
 control, disease
@@ -371,27 +149,9 @@ control, disease
 
 
 GDS3353 :
-FAIL:No Control
-FAIL: Disease state non-binary
 Transformed Disease States:
-disease
-20
-
-
-GDS1287 :
-FAIL:No Control
-FAIL: Disease state non-binary
-Transformed Disease States:
-disease
-19
-
-
-GDS1523 :
-FAIL:No Control
-FAIL: Disease state non-binary
-Transformed Disease States:
-disease
-10
+control, disease
+10, 10
 
 
 GDS3592 :
@@ -400,22 +160,8 @@ control, disease
 12, 12
 
 
-GDS4336 :
-FAIL:No Control
-FAIL: Disease state non-binary
-Transformed Disease States:
-disease
-90
-
-
-GDS3326 :
+GDS4102 :
 FAIL: No disease.state
-GDS2736 :
-FAIL:No Control
-FAIL: Disease state non-binary
-Transformed Disease States:
-disease
-105
 
 
 GDS4399 :
@@ -460,28 +206,10 @@ control, disease
 6, 9
 
 
-GDS1210 :
-Transformed Disease States:
-control, disease
-8, 22
-
-
 GDS4719 :
 Transformed Disease States:
 control, disease
 9, 10
-
-
-GDS5499 :
-Transformed Disease States:
-control, disease
-41, 99
-
-
-GDS2842 :
-Transformed Disease States:
-control, disease
-3, 40
 
 
 GDS1732 :
@@ -496,38 +224,10 @@ control, disease
 24, 93
 
 
-GDS3875 :
-Transformed Disease States:
-control, disease
-24, 93
-
-
-GDS4337 :
-FAIL:No Control
-FAIL: Disease state non-binary
-Transformed Disease States:
-disease
-63
-
-
-GDS3963 :
-Transformed Disease States:
-control, disease
-8, 16
-
-
 GDS4365 :
 Transformed Disease States:
 control, disease
 13, 30
-
-
-GDS4456 :
-FAIL:No Control
-FAIL: Disease state non-binary
-Transformed Disease States:
-disease
-93
 
 
 GDS4589 :

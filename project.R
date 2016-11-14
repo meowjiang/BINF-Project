@@ -7,8 +7,14 @@ library(affy);
 library(limma);
 library(GEOquery); 
 library(proxy)
+library(dplyr)
+
+
+
+
 
 main <-function(diseaseIds){
+  
   platforms <- basics.getPlatforms()
   topTables <- lapply(diseaseIds,disease.topGenes,platforms=platforms)
   topGenes <- lapply(topTables,disease.geneList)
@@ -36,42 +42,29 @@ basics.getPlatforms <-function(){
   return (platforms)
 }
 
-basics.distance.vectorized <-Vectorize(basics.distance,c("topGenes1","topGenes2"))
-
 basics.tanimoto.vectorized <-Vectorize(basics.tanimoto,c("topGenes1","topGenes2"))
 
 basics.tanimoto <- function(topGenes1,topGenes2){
   t1 <- topGenes1
   t2 <- topGenes2
   
-  t1Genes <-t1$genes
-  t2Genes <-t2$genes
+  t1Positive <- t1$positive
+  t1Negative <- t1$negative
   
-  intersect <- intersect(t1Genes,t2Genes)
-  union <- unique(union(t1Genes,t2Genes))
+  t2Positive <- t2$positive
+  t2Negative <- t2$Negative
+  
+  positiveIntersect <- intersect(t1Positive,t2Positive)
+  negativeIntersect <- intersect(t1Negative,t2Negative)
+  
+  union <- (union(t1Positive,t1Negative))
+  union<-(union(union,t2Positive))
+  union<-(unition(union.t2Negative))
+            
+  intersect = union(positveIntersert,negativeIntersect)
   return (1-(length(intersect)/length(union)))
 }
 
-
-basics.distance <-function(topGenes1,topGenes2,platforms){
-  t1 <-topGenes1
-  t2 <-topGenes2
-  
-  t1Genes <-t1$genes
-  t2Genes <-t2$genes
-  
-  #why do we have duplicate genes?
-  #is it because the list is for all probles?
-  t1PlatformGenes <-unique(Table(platforms[[t1$platform]])[,2])
-  t2PlatformGenes <-unique(Table(platforms[[t2$platform]])[,2])
-  
-  common <- length(intersect(t1Genes,t2Genes))
-  platformCommon <- length(intersect(t1PlatformGenes,t2PlatformGenes))
-  bestIntersect <- min(length(t1Genes),length(t2Genes))
-  bestmatch <- bestIntersect/platformCommon
-  return(bestmatch-(common/platformCommon))
-
-}
 
 helper.getPlatform <- function(platformName){
   platform<- getGEO(platformName)
@@ -83,7 +76,7 @@ helper.getName <- function(topGene){
 }
 
 disease.geneList <-function(toptable){
-  return (list(genes=rownames(toptable$table),id=toptable$id,platform=toptable$platform))
+  return (list(positive=toptable$positive$genes,negative=toptable$negative$genes,id=toptable$id,platform=toptable$platform))
 }
 
 disease.topGenes <- function(datasetID,platforms){
@@ -101,8 +94,17 @@ disease.topGenes <- function(datasetID,platforms){
   fittedMatrix <-   lmFit(aggregatedMatrix,design)
   bayesOut <-   eBayes(fittedMatrix) 
   topGenes <-   topTable(bayesOut,p.value=.01,number = nrow(aggregatedMatrix))
-  print (datasetID)
-  print ( head( topGenes))
-  return(list(table=topGenes,id=datasetID,platform=platformName))
+  
+  top_table_rownames <- topGenes
+  top_table_rownames$gene = rownames(top_table_rownames)
+  positive_genes = filter(top_table_rownames, t > 0)
+  negative_genes = filter(top_table_rownames, t < 0)
+  
+  #save an output file of the topgenes 
+  dir.create("data")
+  outFile<- paste("data/",datasetID,"top_table.txt")
+  write.table(topGenes, file = outFile, quote=F, sep="\t", row.names=T)
+
+  return(list(positive=positive_genes,negative=negative_genese, id=datasetID,platform=platformName))
 }
 

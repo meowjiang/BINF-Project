@@ -11,3 +11,11 @@ normal, control, healthy etc.
 
 
 ids is just a list of dataset IDS taken from the spreadsheet
+
+
+
+
+##TODO
+*Differentiate between up and down regulated genes
+*Print out intermediate steps, toptable per disease, genes per disease
+*Figure out how to fix special case datasets

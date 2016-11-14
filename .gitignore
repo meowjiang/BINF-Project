@@ -49,3 +49,7 @@ Temporary Items
 
 #ignore database
 full_database.xml
+
+#ignore output files
+data
+
