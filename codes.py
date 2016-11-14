@@ -4,6 +4,7 @@ ElementTree.register_namespace("drug","http://www.drugbank.ca")
 ElementTree.register_namespace("drugbank-id","http://www.drugbank.ca")
 
 source="full_database.xml"
+drugbank_ids ="drugbankIDS.txt"
 context = ElementTree.iterparse(source, events=("start", "end"))
 context = iter(context)
 
@@ -23,4 +24,22 @@ for event, elem in context:
         if event=="end":
             codes[db_id]=atc_code
             elem.clear()
+
+
+
+file = open(drugbank_ids)
+data = file.read()
+lines = data.splitlines()
+
+
+outfile = open("atc_codes.txt","w")
+for line in lines:
+    atc = codes.get(line.strip())
+    outfile.write(line)
+    outfile.write("\t")
+    if atc==None:
+        atc="ruh-roh"
+    outfile.write(atc)
+    outfile.write("\n")
+outfile.close()
 
