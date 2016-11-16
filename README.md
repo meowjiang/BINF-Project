@@ -16,4 +16,6 @@ ids is just a list of dataset IDS taken from the spreadsheet
 
 
 ##TODO
-*Figure out how to fix special case datasets
+something wrong with GDS5403
+Save platforms to file
+Read topTables from file
