@@ -36,7 +36,6 @@ basics.getPlatforms <-function(){
   return (platforms)
 }
 
-
 basics.tanimoto <- function(topGenes1,topGenes2){
   t1 <- topGenes1
   t2 <- topGenes2
@@ -71,15 +70,16 @@ helper.getName <- function(topGene){
   return(topGene$id)
 }
 
-helper.generateDesignMatrix <- function(geoSet){
+helper.generateDesignMatrix <- function(geoSet,indices){
   controlPattern<-"benign nevi|high bone mineral density|uninfected|non-failing|control|normal|healthy|non-Alzheimer's|HIV-negative|non-obese"
   
   #No diseaseState, tissue instead
-  print
   if(unique(Meta(geoSet)$dataset_id)=="GDS4102")
     diseaseStates<-geoSet@dataTable@columns$tissue
   else
     diseaseStates<-geoSet@dataTable@columns$disease.state
+  
+  diseaseStates<-diseaseStates[indices]
   states<-unique(levels(diseaseStates))
   controlList <- grep(controlPattern,states,value=TRUE)
   diseaseList<-grep(controlPattern,states,value=TRUE,invert=TRUE)
@@ -93,26 +93,53 @@ disease.geneList <-function(toptable){
   return (list(positive=toptable$positive$gene,negative=toptable$negative$gene,id=toptable$id,platform=toptable$platform))
 }
 
+
+helper.getHorribleIndices <-function(geoSet){
+  
+  id = unique(Meta(geoSet)$dataset_id)
+  uglies<-list(GDS1615=list("normal","Crohn's disease"),
+               GDS4358=list("control","HIV"),
+               GDS1956=list("normal","amyotophic lateral sclerosis"),
+               GDS4882=list("normal","hepatocellular carcinoma"),
+               GDS5403=list("notmal","osteoarthritis"),
+               GDS3874=list("healthy","type 1 diabetes"))
+  diseaseStates<-geoSet@dataTable@columns$disease.state
+  
+  if (id %in% names(uglies)){
+
+  states <- uglies[[id]]
+  indices <- which(diseaseStates %in% states  )
+  
+  }
+  else{
+    indices<- 1:length(diseaseStates)
+  }
+  return (indices)
+  
+}
+
+
+
 disease.topGenes <- function(datasetID,platforms){
   #We should check if a file for it already exists
   #if it does, load that and return it instead of doing all this
-  
   
   geoSet <-getGEO(datasetID) 
   platformName <- Meta(geoSet)$platform  
   platform <- platforms[[platformName]]  
   geoData <- GDS2eSet(geoSet,do.log2 = TRUE,GPL=platform)
   geoMatrix <- as.matrix(geoData)
+  indices<-helper.getHorribleIndices(geoSet)
+  geoMatrix<-geoMatrix[,indices]
   mappings<- Table(platform)[,1:2]
   mappedMatrix <-   merge(geoMatrix,mappings,by.x="row.names",by.y="ID", all.x = TRUE)[,c(-1)] 
   aggregatedMatrix <-   aggregate(mappedMatrix[,-ncol(mappedMatrix)],by=list(GB_ACC=mappedMatrix$GB_ACC),FUN=mean)
   rownames(aggregatedMatrix)<-aggregatedMatrix[,1]
   aggregatedMatrix[,1]<-NULL
-  design<-helper.generateDesignMatrix(geoSet)
+  design<-helper.generateDesignMatrix(geoSet,indices)
   fittedMatrix <-   lmFit(aggregatedMatrix,design)
   bayesOut <-   eBayes(fittedMatrix) 
   topGenes <-   topTable(bayesOut,p.value=.01,number = nrow(aggregatedMatrix))
-  
   top_table_rownames <- topGenes
   top_table_rownames$gene = rownames(top_table_rownames)
   positive_genes = filter(top_table_rownames, t > 0)
