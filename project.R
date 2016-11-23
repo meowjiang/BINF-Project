@@ -11,12 +11,14 @@ library(dplyr)
 
 
 runMe <- function(){
+  if(file.exists("data/error.txt")){
+    file.remove("data/error.txt")
+  }
   datasetIDS <- read.csv("ids",header = FALSE)
   IDList <-datasetIDS[,1]
-  distanceMatrix <- main(IDList)
+  distanceMatrix <- main(levels(IDList))
   write.table(distanceMatrix,file="distanceMatrix.txt")
 }
-
 
 main <-function(diseaseIds){
   
@@ -24,10 +26,10 @@ main <-function(diseaseIds){
   topTables <- lapply(diseaseIds,disease.topGenes,platforms=platforms)
   topGenes <- lapply(topTables,disease.geneList)
   names(topGenes)<-lapply(topGenes,helper.getName)
+  topGenes<-Filter(function(x)length(x$positive)>0||length(x$negative)>0,topGenes)
   distanceMatrix <- outer(topGenes, topGenes,FUN = basics.tanimoto.vectorized)
   return (distanceMatrix)
 }
-
 
 basics.getPlatforms <-function(){
   platformNames <- c("GPL570","GPL96")
@@ -59,9 +61,7 @@ basics.tanimoto <- function(topGenes1,topGenes2){
 
 basics.tanimoto.vectorized <-Vectorize(basics.tanimoto,c("topGenes1","topGenes2"))
 
-
 helper.getPlatform <- function(platformName){
-  #We should save this and read from a file if possible
   platform<- getGEO(platformName)
   return(platform)
 }
@@ -93,7 +93,6 @@ disease.geneList <-function(toptable){
   return (list(positive=toptable$positive$gene,negative=toptable$negative$gene,id=toptable$id,platform=toptable$platform))
 }
 
-
 helper.getHorribleIndices <-function(geoSet){
   
   id = unique(Meta(geoSet)$dataset_id)
@@ -103,13 +102,18 @@ helper.getHorribleIndices <-function(geoSet){
                GDS4882=list("normal","hepatocellular carcinoma"),
                GDS5403=list("notmal","osteoarthritis"),
                GDS3874=list("healthy","type 1 diabetes"))
-  diseaseStates<-geoSet@dataTable@columns$disease.state
+  
+  #No diseaseState, tissue instead
+  if(unique(Meta(geoSet)$dataset_id)=="GDS4102")
+    diseaseStates<-geoSet@dataTable@columns$tissue
+  else
+    diseaseStates<-geoSet@dataTable@columns$disease.state
   
   if (id %in% names(uglies)){
-
-  states <- uglies[[id]]
-  indices <- which(diseaseStates %in% states  )
-  
+    
+    states <- uglies[[id]]
+    indices <- which(diseaseStates %in% states  )
+    
   }
   else{
     indices<- 1:length(diseaseStates)
@@ -118,40 +122,52 @@ helper.getHorribleIndices <-function(geoSet){
   
 }
 
-
-
 disease.topGenes <- function(datasetID,platforms){
-  #We should check if a file for it already exists
-  #if it does, load that and return it instead of doing all this
+  dir.create("data")
+  outFile<- paste("data/",datasetID,"top_table.txt",sep="")
+  errorFile<- paste("data/","error.txt",sep="")
   
-  geoSet <-getGEO(datasetID) 
+  geoSet <-getGEO(datasetID,getGPL = False) 
   platformName <- Meta(geoSet)$platform  
   platform <- platforms[[platformName]]  
-  geoData <- GDS2eSet(geoSet,do.log2 = TRUE,GPL=platform)
-  geoMatrix <- as.matrix(geoData)
-  indices<-helper.getHorribleIndices(geoSet)
-  geoMatrix<-geoMatrix[,indices]
-  mappings<- Table(platform)[,1:2]
-  mappedMatrix <-   merge(geoMatrix,mappings,by.x="row.names",by.y="ID", all.x = TRUE)[,c(-1)] 
-  aggregatedMatrix <-   aggregate(mappedMatrix[,-ncol(mappedMatrix)],by=list(GB_ACC=mappedMatrix$GB_ACC),FUN=mean)
-  rownames(aggregatedMatrix)<-aggregatedMatrix[,1]
-  aggregatedMatrix[,1]<-NULL
-  design<-helper.generateDesignMatrix(geoSet,indices)
-  fittedMatrix <-   lmFit(aggregatedMatrix,design)
-  bayesOut <-   eBayes(fittedMatrix) 
-  topGenes <-   topTable(bayesOut,p.value=.01,number = nrow(aggregatedMatrix))
+  if(!file.exists(outFile)){
+    geoData <- GDS2eSet(geoSet,do.log2 = TRUE,GPL=platform,getGPL = FALSE)
+    geoMatrix <- as.matrix(geoData)
+    indices<-helper.getHorribleIndices(geoSet)
+    geoMatrix<-geoMatrix[,indices]
+    mappings<- Table(platform)[,1:2]
+    mappedMatrix <-   merge(geoMatrix,mappings,by.x="row.names",by.y="ID",all.x=TRUE)[,c(-1)] 
+    aggregatedMatrix <-   aggregate(mappedMatrix[,-ncol(mappedMatrix)],by=list(GB_ACC=mappedMatrix$GB_ACC),FUN=mean)
+    rownames(aggregatedMatrix)<-aggregatedMatrix[,1]
+
+    #get rid of probes we couldn't match to a gene
+    aggregatedMatrix<-filter(aggregatedMatrix,GB_ACC!="")
+    
+    aggregatedMatrix[,1]<-NULL
+    design<-helper.generateDesignMatrix(geoSet,indices)
+    fittedMatrix <-   lmFit(aggregatedMatrix,design)
+    bayesOut <-   eBayes(fittedMatrix) 
+    topGenes <-   topTable(bayesOut,p.value=.01,number = nrow(aggregatedMatrix))
+    if(length(topGenes)==0)
+      write.dcf(paste("uh oh, no top genes for ",datasetID),file = errorFile,append = TRUE)
+    
+    write.table(topGenes, file = outFile,quote=F, sep="\t", row.names=T,col.names = NA,)
+  }
+  else{
+    #this is a bad idea, 3 is arbitrary
+    if(file.info(outFile)$size<3){
+      topGenes<-data.frame()
+    }
+    else{
+      topGenes<- read.table(outFile)
+      
+    }
+  }
+  
   top_table_rownames <- topGenes
   top_table_rownames$gene = rownames(top_table_rownames)
   positive_genes = filter(top_table_rownames, t > 0)
   negative_genes = filter(top_table_rownames, t < 0)
-  
-  dir.create("data")
-  outFile<- paste("data/",datasetID,"top_table.txt")
-  
-  if(length(topGenes)==0)
-    write.dcf(paste("uh oh, no top genes for ",datasetID),file = outFile)
-  else
-    write.table(topGenes, file = outFile, quote=F, sep="\t", row.names=T,col.names = NA)
   
   return(list(positive=positive_genes,negative=negative_genes, id=datasetID,platform=platformName))
 }
