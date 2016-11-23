@@ -8,6 +8,7 @@ library(limma);
 library(GEOquery); 
 library(proxy)
 library(dplyr)
+library(igraph)
 
 
 runMe <- function(){
@@ -18,6 +19,7 @@ runMe <- function(){
   IDList <-datasetIDS[,1]
   distanceMatrix <- main(levels(IDList))
   write.table(distanceMatrix,file="distanceMatrix.txt")
+  helper.graph(distanceMatrix)
 }
 
 main <-function(diseaseIds){
@@ -171,4 +173,15 @@ disease.topGenes <- function(datasetID,platforms){
   
   return(list(positive=positive_genes,negative=negative_genes, id=datasetID,platform=platformName))
 }
+
+helper.graph <-function(distanceMatrix){
+  matrix<-as.matrix(distanceMatrix)
+  graph<-graph_from_adjacency_matrix(matrix,weighted=TRUE,mode="undirected")
+  mst<-minimum.spanning.tree(graph)
+  E(mst)$color<-'red'
+  E(mst)$width<-3
+  clusters<-cluster_optimal(mst)
+  plot(mst,vertex.color=clusters$membership)
+}
+
 
