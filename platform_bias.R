@@ -15,14 +15,6 @@ library(affy);
 library(limma);
 library(GEOquery);
 
-main <- function(datasetID) {
-  geoSet <-getGEO(datasetID) 
-  platformName <- Meta(geoSet)$platform
-  geoData <- GDS2eSet(geoSet, do.log2 = TRUE)
-  geoMatrix <- as.matrix(geoData)
-  return(geoMatrix)
-}
-
 # This aggregates all data
 get_expression_values <- function(datasetID) {
   geoSet <-getGEO(datasetID) 
