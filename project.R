@@ -11,21 +11,25 @@ library(dplyr)
 library(igraph)
 
 
-runMe <- function(){
-  if(file.exists("data/error.txt")){
-    file.remove("data/error.txt")
+
+#change it so that we key off doid instead of gds
+#output the relation table 0/1  related or not
+runMe <- function(idFile,dataFolder){
+  errorFile<- file.path(dataFolder,"error.txt")
+  if(file.exists(errorFile)){
+    file.remove(errorFile)
   }
   datasetIDS <- read.csv("ids",header = FALSE)
   IDList <-datasetIDS[,1]
-  distanceMatrix <- main(levels(IDList))
+  distanceMatrix <- main(levels(IDList),dataFolder)
   write.table(distanceMatrix,file="distanceMatrix.txt")
   helper.graph(distanceMatrix)
 }
 
-main <-function(diseaseIds){
+main <-function(diseaseIds,dataFolder){
   
   platforms <- basics.getPlatforms()
-  topTables <- lapply(diseaseIds,disease.topGenes,platforms=platforms)
+  topTables <- lapply(diseaseIds,disease.topGenes,platforms=platforms,dataFolder=dataFolder)
   topGenes <- lapply(topTables,disease.geneList)
   names(topGenes)<-lapply(topGenes,helper.getName)
   topGenes<-Filter(function(x)length(x$positive)>0||length(x$negative)>0,topGenes)
@@ -34,7 +38,7 @@ main <-function(diseaseIds){
 }
 
 basics.getPlatforms <-function(){
-  platformNames <- c("GPL570","GPL96")
+  platformNames <- c("GPL570","GPL96","GPL4133","GPL6244","GPL571","GPL6255","GPL8300","GPL80","GPL96","GPL6947")
   platforms<-lapply(platformNames,helper.getPlatform)
   names(platforms)<-platformNames
   return (platforms)
@@ -124,11 +128,12 @@ helper.getHorribleIndices <-function(geoSet){
   
 }
 
-disease.topGenes <- function(datasetID,platforms){
-  dir.create("data")
-  outFile<- paste("data/",datasetID,"top_table.txt",sep="")
-  errorFile<- paste("data/","error.txt",sep="")
-  
+disease.topGenes <- function(datasetID,platforms,dataFolder){
+  dir.create(dataFolder)
+  temp<- paste(datasetID,"top_table.txt",SEP="")
+  outFile<- file.path(dataFolder,temp)
+  erroFile<- file.path(dataFolder,"error.txt")
+
   geoSet <-getGEO(datasetID,getGPL = False) 
   platformName <- Meta(geoSet)$platform  
   platform <- platforms[[platformName]]  
@@ -182,6 +187,15 @@ helper.graph <-function(distanceMatrix){
   E(mst)$width<-3
   clusters<-cluster_optimal(mst)
   plot(mst,vertex.color=clusters$membership)
+}
+
+helper.predictions <-function(mst){
+  #we want a new matrix of disease ids by diseaseids 
+  #get a list of nodes 
+  #create an node X node matrix initialise to zero
+  #go through clusters 
+  #get a list of nodes in cluster
+  #set value in matrix to 1 
 }
 
 
