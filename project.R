@@ -16,13 +16,14 @@ library(igraph)
 #output the relation table 0/1  related or not
 runMe <- function(idFile,dataFolder){
   errorFile<- file.path(dataFolder,"error.txt")
+  distanceMatrixFile<-file.path(dataFolder,"distanceMatrix.txt")
   if(file.exists(errorFile)){
     file.remove(errorFile)
   }
-  datasetIDS <- read.csv("ids",header = FALSE)
+  datasetIDS <- read.csv(idFile,header = FALSE)
   IDList <-datasetIDS[,1]
   distanceMatrix <- main(levels(IDList),dataFolder)
-  write.table(distanceMatrix,file="distanceMatrix.txt")
+  write.table(distanceMatrix,file=distanceMatrixFile)
   helper.graph(distanceMatrix)
 }
 
@@ -132,7 +133,7 @@ disease.topGenes <- function(datasetID,platforms,dataFolder){
   dir.create(dataFolder)
   temp<- paste(datasetID,"top_table.txt",SEP="")
   outFile<- file.path(dataFolder,temp)
-  erroFile<- file.path(dataFolder,"error.txt")
+  errorFile<- file.path(dataFolder,"error.txt")
 
   geoSet <-getGEO(datasetID,getGPL = False) 
   platformName <- Meta(geoSet)$platform  
