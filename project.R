@@ -20,17 +20,16 @@ runMe <- function(idFile,dataFolder){
   if(file.exists(errorFile)){
     file.remove(errorFile)
   }
-  datasetIDS <- read.csv(idFile,header = FALSE)
-  IDList <-datasetIDS[,1]
-  distanceMatrix <- main(levels(IDList),dataFolder)
+  diseases <- read.csv(idFile,header = FALSE,sep = "\t")
+  distanceMatrix <- main(diseases,dataFolder)
   write.table(distanceMatrix,file=distanceMatrixFile)
   helper.graph(distanceMatrix)
 }
 
-main <-function(diseaseIds,dataFolder){
+main <-function(diseases,dataFolder){
   
   platforms <- basics.getPlatforms()
-  topTables <- lapply(diseaseIds,disease.topGenes,platforms=platforms,dataFolder=dataFolder)
+  topTables <- apply(diseases,1,disease.topGenes,platforms=platforms,dataFolder=dataFolder)
   topGenes <- lapply(topTables,disease.geneList)
   names(topGenes)<-lapply(topGenes,helper.getName)
   topGenes<-Filter(function(x)length(x$positive)>0||length(x$negative)>0,topGenes)
@@ -129,11 +128,14 @@ helper.getHorribleIndices <-function(geoSet){
   
 }
 
-disease.topGenes <- function(datasetID,platforms,dataFolder){
+disease.topGenes <- function(disease,platforms,dataFolder){
+  diseaseID<- as.numeric(disease[1])
+  datasetID<- as.character(disease[2])
   dir.create(dataFolder)
-  temp<- paste(datasetID,"top_table.txt",SEP="")
+  temp<- paste(diseaseID,"top_table.txt",sep = "")
   outFile<- file.path(dataFolder,temp)
   errorFile<- file.path(dataFolder,"error.txt")
+  
 
   geoSet <-getGEO(datasetID,getGPL = False) 
   platformName <- Meta(geoSet)$platform  
@@ -157,9 +159,9 @@ disease.topGenes <- function(datasetID,platforms,dataFolder){
     bayesOut <-   eBayes(fittedMatrix) 
     topGenes <-   topTable(bayesOut,p.value=.01,number = nrow(aggregatedMatrix))
     if(length(topGenes)==0)
-      write.dcf(paste("uh oh, no top genes for ",datasetID),file = errorFile,append = TRUE)
+      write.dcf(paste("uh oh, no top genes for ",diseaseID),file = errorFile,append = TRUE)
     
-    write.table(topGenes, file = outFile,quote=F, sep="\t", row.names=T,col.names = NA,)
+    write.table(topGenes, file = outFile,quote=F, sep="\t", row.names=T,col.names = NA)
   }
   else{
     #this is a bad idea, 3 is arbitrary
@@ -177,7 +179,7 @@ disease.topGenes <- function(datasetID,platforms,dataFolder){
   positive_genes = filter(top_table_rownames, t > 0)
   negative_genes = filter(top_table_rownames, t < 0)
   
-  return(list(positive=positive_genes,negative=negative_genes, id=datasetID,platform=platformName))
+  return(list(positive=positive_genes,negative=negative_genes, id=diseaseID,platform=platformName))
 }
 
 helper.graph <-function(distanceMatrix){
