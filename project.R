@@ -17,13 +17,16 @@ library(igraph)
 runMe <- function(idFile,dataFolder){
   errorFile<- file.path(dataFolder,"error.txt")
   distanceMatrixFile<-file.path(dataFolder,"distanceMatrix.txt")
+  predictionsFile <-file.path(dataFolder,"predictions.txt")
   if(file.exists(errorFile)){
     file.remove(errorFile)
   }
   diseases <- read.csv(idFile,header = FALSE,sep = "\t")
   distanceMatrix <- main(diseases,dataFolder)
   write.table(distanceMatrix,file=distanceMatrixFile)
-  helper.graph(distanceMatrix)
+  clusters<-helper.graph(distanceMatrix)
+  predictions<-disease.predictions(clusters)
+  write.table(as.matrix(predictions),file=predictionsFile)
 }
 
 main <-function(diseases,dataFolder){
@@ -190,15 +193,42 @@ helper.graph <-function(distanceMatrix){
   E(mst)$width<-3
   clusters<-cluster_optimal(mst)
   plot(mst,vertex.color=clusters$membership)
+  return (clusters)
 }
 
-helper.predictions <-function(mst){
-  #we want a new matrix of disease ids by diseaseids 
-  #get a list of nodes 
-  #create an node X node matrix initialise to zero
-  #go through clusters 
-  #get a list of nodes in cluster
-  #set value in matrix to 1 
+disease.predictions <-function(community){
+  indices<-c(1:length(community))
+  all<- community$names
+  
+  df<-t(combn(all,2))
+  df<-cbind(df,0)
+  colnames(df)<-c("g1","g2","pred")
+  df<-as.data.frame(df,stringsAsFactors=FALSE)
+  
+  
+  pairs<-lapply(indices,helper.predict,community=community)
+  
+  allPairs<-do.call(rbind,pairs)
+  allPairs<-cbind(allPairs,1)
+  allPairs<-as.data.frame(allPairs)
+  
+  colnames(allPairs)<-c("g1","g2","pred")
+  
+  merged<-merge(df,allPairs,by=c("g1","g2"),all.x = TRUE)
+  merged[is.na(merged)]<-0
+  merged[,3]<-NULL
+  colnames(merged)[3]<-"pred"
+  return(merged)
 }
+
+
+helper.predict <-function(index,community){
+  #df<-data.frame()
+  cluster <- community[index]
+  nodes<- as.list(strsplit(cluster[[1]]," "))
+  temp <- t(combn(nodes,2))
+  return (temp)
+}
+
 
 
