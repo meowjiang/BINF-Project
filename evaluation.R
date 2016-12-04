@@ -12,13 +12,18 @@ sim_cutoff <- 2
 main <- function(dir, atc_cutoff, sim_cutoff) {
   all_data <- load_combine_data(dir, atc_cutoff, sim_cutoff)
   ref_vs_pred <- select(all_data, ref, pred)
-  return(f_1(ref_vs_pred))
+  prec <- precision(ref_vs_pred)
+  rec <- recall(ref_vs_pred)
+  fp_rate <- fpr(ref_vs_pred)
+  f_1_score <- f_1(ref_vs_pred)
+  return(c(prec, rec, fp_rate, f_1_score))
 }
 
 main(dir, atc_cutoff, sim_cutoff)
 
 ################# Run me for several refsets ######################
-multi_refsets <- list(c(7,1), c(6,1), c(5,1), c(5,2))
+multi_refsets <- list(c(7,1), c(7,2), c(6,1), c(6,2), c(5,1), c(5,2), c(4,1), c(4,2))
+# Results are: precision, recall, FPR, F1
 for (x in multi_refsets) {
   print(x)
   print(main(dir, atc_cutoff = x[1], sim_cutoff = x[2]))
@@ -71,6 +76,11 @@ false_negative <- function(ref_vs_pred) {
   return(nrow(fn))
 }
 
+true_negative <- function(ref_vs_pred) {
+  tn <- filter(ref_vs_pred, ref == 0, pred == 0)
+  return(nrow(tn))
+}
+
 precision <- function(ref_vs_pred) {
   tp <- true_positive(ref_vs_pred)
   fp <- false_positive(ref_vs_pred)
@@ -89,4 +99,8 @@ f_1 <- function(ref_vs_pred) {
   return((2*prec*rec)/(prec + rec))
 }
 
-
+fpr <- function(ref_vs_pred) {
+  fp <- false_positive(ref_vs_pred)
+  tn <- true_negative(ref_vs_pred)
+  return(fp / (fp + tn))
+}

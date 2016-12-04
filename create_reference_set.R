@@ -1,11 +1,10 @@
 # Create reference set of the ATC codes (possibly with different character cut-offs) for each disease
-dir <- "/Users/rachelhz/BINF-Project/reference_sets"
+dir <- "/Users/rachelhz/BINF-Project"
 library(dplyr)
-indications <- read.csv("~/Desktop/Rachel's/BINFG4006/project/catalog_RZ_indications.csv", header = T)
 
 ############# Variables to specify ##################
 # How many ATC characters to keep (max 7)
-atc_cutoff <- 5
+atc_cutoff <- 4
 # The similarity cutoff for ATC codes shared
 sim_cutoff <- 2
 
@@ -56,10 +55,11 @@ create_refset <- function(indications, sim_cutoff, dir) {
 }
 
 ################## Run me ########################
+indications <- read.csv("~/Desktop/Rachel's/BINFG4006/project/catalog_RZ_indications.csv", header = T)
 indications <- modify_indications(indications, atc_cutoff)
 create_refset(indications, sim_cutoff, dir)
 
 ################## Other ########################
 # How to read in a refset
-foo <- read.table(file = paste(dir, 'refset_5_2.txt', sep = '/'), sep="\t", header = T, 
+foo <- read.table(file = paste(dir, 'reference_sets', 'refset_5_2.txt', sep = '/'), sep="\t", header = T, 
                   colClasses = c('character', 'character', 'integer', 'integer'))
