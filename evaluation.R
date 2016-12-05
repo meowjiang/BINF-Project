@@ -3,7 +3,7 @@ library(dplyr)
 dir <- "/Users/rachelhz/BINF-Project"
 
 ################# Specify reference set to use ######################
-# How many ATC characters to keep (max 7)
+# How many ATC characters to keep (choose from: 1, 3, 4, 5, 7)
 atc_cutoff <- 5
 # The similarity cutoff for ATC codes shared
 sim_cutoff <- 2
@@ -22,7 +22,7 @@ main <- function(dir, atc_cutoff, sim_cutoff) {
 main(dir, atc_cutoff, sim_cutoff)
 
 ################# Run me for several refsets ######################
-multi_refsets <- list(c(7,1), c(7,2), c(6,1), c(6,2), c(5,1), c(5,2), c(4,1), c(4,2))
+multi_refsets <- list(c(7,1), c(7,2), c(5,1), c(5,2), c(4,1), c(4,2))
 # Results are: precision, recall, FPR, F1
 for (x in multi_refsets) {
   print(x)

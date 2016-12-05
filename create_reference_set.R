@@ -3,7 +3,7 @@ dir <- "/Users/rachelhz/BINF-Project"
 library(dplyr)
 
 ############# Variables to specify ##################
-# How many ATC characters to keep (max 7)
+# How many ATC characters to keep (choose from: 1, 3, 4, 5, 7)
 atc_cutoff <- 4
 # The similarity cutoff for ATC codes shared
 sim_cutoff <- 2
