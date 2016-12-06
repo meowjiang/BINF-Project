@@ -12,8 +12,6 @@ library(igraph)
 
 
 
-#change it so that we key off doid instead of gds
-#output the relation table 0/1  related or not
 runMe <- function(idFile,dataFolder){
   errorFile<- file.path(dataFolder,"error.txt")
   distanceMatrixFile<-file.path(dataFolder,"distanceMatrix.txt")
@@ -148,13 +146,15 @@ disease.topGenes <- function(disease,platforms,dataFolder){
     geoMatrix <- as.matrix(geoData)
     indices<-helper.getHorribleIndices(geoSet)
     geoMatrix<-geoMatrix[,indices]
-    mappings<- Table(platform)[,1:2]
+    mappings<- Table(platform)[,c("ID","GB_ACC")]
     mappedMatrix <-   merge(geoMatrix,mappings,by.x="row.names",by.y="ID",all.x=TRUE)[,c(-1)] 
     aggregatedMatrix <-   aggregate(mappedMatrix[,-ncol(mappedMatrix)],by=list(GB_ACC=mappedMatrix$GB_ACC),FUN=mean)
-    rownames(aggregatedMatrix)<-aggregatedMatrix[,1]
+    
 
     #get rid of probes we couldn't match to a gene
     aggregatedMatrix<-filter(aggregatedMatrix,GB_ACC!="")
+    
+    rownames(aggregatedMatrix)<-aggregatedMatrix[,1]
     
     aggregatedMatrix[,1]<-NULL
     design<-helper.generateDesignMatrix(geoSet,indices)
