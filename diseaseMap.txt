@@ -1,0 +1,56 @@
+10652	Alzheimer's disease
+9206	Barrett's esophagus
+8778	Crohn's disease
+14330	Parkinson's disease
+635	acquired immunodeficiency syndrome
+0050741	alcohol dependence
+986	alopecia areata
+332	amyotrophic lateral sclerosis
+7147	ankylosing spondylitis
+2841	asthma
+1936	atherosclerosis
+3310	atopic dermatitis
+12849	autistic disorder
+3312	bipolar disorder
+1319	brain cancer
+4362	cervical cancer
+3083	chronic obstructive pulmonary disease
+3393	coronary artery disease
+216	dental caries
+12930	dilated cardiomyopathy
+1595	endogenous depression
+5041	esophageal cancer
+1686	glaucoma
+11934	head and neck cancer
+2531	hematologic cancer
+0050156	idiopathic pulmonary fibrosis
+263	kidney cancer
+3571	liver cancer
+1324	lung cancer
+0060073	lymphatic system cancer
+12365	malaria
+3070	malignant glioma
+1909	melanoma
+2377	multiple sclerosis
+4045	muscle cancer
+9970	obesity
+8398	osteoarthritis
+11476	osteoporosis
+2394	ovarian cancer
+1793	pancreatic cancer
+11612	polycystic ovary syndrome
+10283	prostate cancer
+8893	psoriasis
+7148	rheumatoid arthritis
+1115	sarcoma
+5419	schizophrenia
+4159	skin cancer
+10534	stomach cancer
+9074	systemic lupus erythematosus
+418	systemic scleroderma
+2998	testicular cancer
+1781	thyroid cancer
+9744	type 1 diabetes mellitus
+9352	type 2 diabetes mellitus
+8577	ulcerative colitis
+363	uterine cancer

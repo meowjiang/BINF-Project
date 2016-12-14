@@ -221,6 +221,22 @@ disease.predictions <-function(community){
   return(merged)
 }
 
+helper.idClusters<-function(dataFolder,community){
+  dm <-read.table('diseaseMap.txt',sep="\t",stringsAsFactors = F)
+  #dm[which(dm[,"V1"]==635),][[2]]
+  indices<-c(1:length(community))
+  
+  doids<-lapply(indices,function(x)community$names[community$membership==x])
+  fileConn<-file(file.path(dataFolder,"clusters.txt"))
+  lapply(doids,function(x) write(file="clusters.txt",c(x,"\n"),append=TRUE)) 
+  
+  z<-unlist(doids)
+  zz<-lapply(z,function(x)dm[which(dm[,"V1"]==x),][[2]])
+  df<-data.frame()
+  df<-cbind(z,zz)
+  write.table(df,"mappings")
+  }
+
 
 helper.predict <-function(index,community){
   #df<-data.frame()
